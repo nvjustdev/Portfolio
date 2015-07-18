@@ -74,13 +74,14 @@ h1 {
 .hero {
   padding: 1em;
   max-width: 100%;
-  background-color: teal;
-  color: white;
+  background-color: #008080;
+  color: #ffffff;
 }
 
 .my-picture {
   display: block;
   margin: 0 auto 10px;
+  max-width: 100%;
   width: max-width;
   border: 2px solid white;
   -webkit-border-radius: 50%;
@@ -101,7 +102,7 @@ h1 {
   max-width: 100%;
   font-size: 22px;
   margin: 0 auto 20px;
-  color: teal;
+  color: #008080;
   text-transform: capitalize;
 }
 
