@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Resume</title>
+
+  <!--Sytlesheets-->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <!--Fonts-->
+  <link href="http://fonts.googleapis.com/css?family=Lato:100,300" rel="stylesheet">
+
+  <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
+  <script src="js/jQuery.js"></script>
+  <script src="js/helper.js"></script>
+
+</head>
+<body>
+  <div id="main" class="container">
+    <div id="header" class="center-content clear-fix row top">
+      <div class="col-md-9 heading" id="name">
+      </div>
+      <div class="col-md-3 heading" id="picture">
+      </div>
+    </div>
+
+    <div class="row contactsBar" id="topContacts">
+    </div>
+
+    <div class="row">
+      <hr class="horizontalLine">
+    </div>
+    <div style="clear: both;"></div>
+    <div id="navigationBar" class="row">
+      
+    </div>
+    <div class="row" id="welcomeMessage">
+    </div>
+    <div id="aboutMe" class="row aboutMe">
+      <h2 class="heading-about heading-header">About Me</h2>
+      <h4 class="heading-about">Cover Letter</h4>
+      <div class="coverLetter"></div>
+    </div>
+    <div id="workExperience" class="gray row">
+      <h2>Work Experience</h2>
+      <div id="employment">
+      </div>
+      <div id="internship">      
+      </div>
+      <div id="volunteer">
+      </div>
+    </div>
+    <div id="projects" class="row">
+      <h2>Projects</h2>
+    </div>
+    <div id="education" class="gray row">
+      <h2>Education</h2>
+      <div id="schools">
+      </div>
+      <div id="certificates"> 
+      </div>
+    </div>
+    <div id="map" class="row">
+      <h2>Locations</h2>
+      <div id="map-div">
+      </div>
+    </div>
+    <div id="lets-connect" class="dark-gray row connect">
+      <h3>Contact Information</h3>
+      <ul id="footerContacts" class="flex-box">
+        <!-- <a href="mailto: %data%?subject=Regarding your resume&body= "> Email Nirmala </a> -->
+        <!-- <a href="tel:%data%">Call Nirmala</a> -->
+      </ul>
+    </div>
+  </div>
+
+  <!-- Modal for Awards -->
+  <div class="modal fade" id="school0" tabindex="-1" role="dialog" aria-labelledby="myModalLabel0" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel0">Awards and Achievements</h4>
+        </div>
+        <div class="modal-body school0-body">
+          <!-- <input type="text" name="school0-Info" id="school0-Info" value=""/> -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="school1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel1">Awards and Achievements</h4>
+        </div>
+        <div class="modal-body school1-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="school2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel2">Awards and Achievements</h4>
+        </div>
+        <div class="modal-body school2-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/resumeBuilder.js"></script>
+
+  <script type="text/javascript">
+    if(document.getElementsByClassName('flex-item').length === 0) {
+      document.getElementById('topContacts').style.display = 'none';
+    }
+
+    if(document.getElementsByTagName('h1').length === 0) {
+      document.getElementById('header').style.display = 'none';
+    }
+
+    if(document.getElementsByClassName('flex-item').length === 0) {
+      document.getElementById('lets-connect').style.display = 'none';
+    }
+
+    if(document.getElementById('map') === null) {
+      document.getElementById('map-div').style.display = 'none';
+    }
+
+    window.onload = init;
+
+    function init() {
+      document.getElementById('aboutMe').style.display = 'inline';
+      document.getElementById('workExperience').style.display = 'none';
+      document.getElementById('education').style.display = 'none';
+      document.getElementById('projects').style.display = 'none';
+      document.getElementById('map').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
