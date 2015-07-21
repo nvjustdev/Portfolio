@@ -374,23 +374,22 @@ education = {
 			$(".education-entry:last").append(certDetails);
 		}
 	}
+}, 
+headerNavBar = {
+	display : function() {
+		$("#navigationBar").append(HTMLnavStart);
+		$(".navigation").append(HTMLnavListStart);
+		var navDetails = HTMLnavElement.replace("%data%", "work").replace("%Data%", "Work").replace("%funct%", "showWork")
+		.concat(HTMLnavElement.replace("%data%", "education")).replace("%Data%", "Education").replace("%funct%", "showEducation")
+		.concat(HTMLnavElement.replace("%data%", "project")).replace("%Data%", "Projects").replace("%funct%", "showProject")
+		.concat(HTMLnavElement.replace("%data%", "location")).replace("%Data%", "Location").replace("%funct%", "showLocation")
+		.concat(HTMLnavElement.replace("%data%", "about")).replace("%Data%", "About").replace("%funct%", "showAbout");
+
+		$(".navbar:last").append(navDetails);
+	}
 };
 
-/* Functions */
-
-function displayNavBar() {
-	$("#navigationBar").append(HTMLnavStart);
-	$(".navigation").append(HTMLnavListStart);
-	var navDetails = HTMLnavElement.replace("%data%", "work").replace("%Data%", "Work").replace("%funct%", "showWork")
-	.concat(HTMLnavElement.replace("%data%", "education")).replace("%Data%", "Education").replace("%funct%", "showEducation")
-	.concat(HTMLnavElement.replace("%data%", "project")).replace("%Data%", "Projects").replace("%funct%", "showProject")
-	.concat(HTMLnavElement.replace("%data%", "location")).replace("%Data%", "Location").replace("%funct%", "showLocation")
-	.concat(HTMLnavElement.replace("%data%", "about")).replace("%Data%", "About").replace("%funct%", "showAbout");
-
-	$(".navbar:last").append(navDetails);
-}
-
-/* Important functions */
+/* Important helper functions */
 function showWork() {
 	document.getElementById('aboutMe').style.display = 'none';
 	document.getElementById('workExperience').style.display = 'inline';
@@ -449,7 +448,7 @@ function showAward(item) {
 bio.display();
 
 /* Navigation Bar Section */
-displayNavBar();
+headerNavBar.display();
 
 /* Work Experience Section */
 work.display();
