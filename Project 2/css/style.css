@@ -97,6 +97,8 @@ h2 {
 
 .coverLetter-body {
   margin-top: 10px;
+  font-size: 18px;
+  color: #111;
 }
 
 .heading-about {
@@ -277,7 +279,7 @@ h2 {
 }
 
 
-@media only screen and (min-width: 1000px) and (max-width: 1500px) {
+@media only screen and (min-width: 1000px) and (max-width: 1200px) {
   #lets-connect {
     margin-top: 10px;
   }
