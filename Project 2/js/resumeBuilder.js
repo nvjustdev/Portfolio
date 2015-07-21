@@ -8,8 +8,8 @@ var work = {
 		"location" : "Cupertino",
 		"timeframe" : "November 2014 - Present",
 		"skills" : [
-		"iOS development", 
-		"Android development", 
+		"iOS development",
+		"Android development",
 		"Mobile App automated testing"
 		]
 	},
@@ -32,9 +32,9 @@ var work = {
 		"location" : "Campbell, CA",
 		"timeframe" : "January 2014 - December 2014",
 		"skills" : [
-		"Designing Mobile Apps", 
-		"iOS development", 
-		"Android development", 
+		"Designing Mobile Apps",
+		"iOS development",
+		"Android development",
 		"Mobile App testing"
 		]
 	},
@@ -247,7 +247,7 @@ bio = {
 	"coverLetter" : "<article><p>I pride myself in being a self-learner who is extremely passionate about developing software for mobile devices. I am extremely comfortable programming in Objective-C, and Android and context switching between the two with ease. When I don't know (yes, sometimes we don't know it all) a solution, I strive hard to find it and I usually do.</p><p>I work very well in a team or in an silo as might be needed, and can work with little supervision.. I am very organized, flexible and stand true to deliverables and schedules. I take deep pride in my work and attempt to look at it from both development and test perspectives.</p><p>I have been a successful remote worker for a few years now and I know what it takes to succeed while working from home.</p><p>If you think my skills might be a fit, please let me know to take these conversations forward.</p></article>",
 	"skills" : [
 	"Languages: HTML5, CSS3, Javascript, Objective-C, Java",
-	"iOS, Android & Web development", 
+	"iOS, Android & Web development",
 	"Wireless LAN & Wi-Fi Location Technologies",
 	"Software Testing",
 	"Teaching"
@@ -260,7 +260,7 @@ bio = {
 	$("#name").append(name);
 
 	//Picture
-	$("#picture").append(HTMLbioPic.replace("%data%", bio.picture));	
+	$("#picture").append(HTMLbioPic.replace("%data%", bio.picture));
 
 	//Welcome Message
 	$("#welcomeMessage").append(HTMLwelcomeMsg.replace("%data%", bio.welcomeMsg));
@@ -374,7 +374,7 @@ education = {
 			$(".education-entry:last").append(certDetails);
 		}
 	}
-}, 
+},
 headerNavBar = {
 	display : function() {
 		$("#navigationBar").append(HTMLnavStart);
@@ -406,7 +406,7 @@ function showEducation() {
 	document.getElementById('projects').style.display = 'none';
 	document.getElementById('map').style.display = 'none';
 	document.getElementById('welcomeMsg').style.display = 'none';
-} 
+}
 
 function showProject() {
 	document.getElementById('aboutMe').style.display = 'none';
@@ -415,7 +415,7 @@ function showProject() {
 	document.getElementById('projects').style.display = 'inline';
 	document.getElementById('map').style.display = 'none';
 	document.getElementById('welcomeMsg').style.display = 'none';
-} 
+}
 
 function showLocation() {
 	document.getElementById('aboutMe').style.display = 'none';
@@ -425,7 +425,7 @@ function showLocation() {
 	document.getElementById('map').style.display = 'inline';
 	document.getElementById('welcomeMsg').style.display = 'none';
 	initializeMap();
-} 
+}
 
 function showAbout() {
 	document.getElementById('workExperience').style.display = 'none';
