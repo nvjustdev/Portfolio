@@ -9,7 +9,7 @@ There are three levels of difficulty. With each level, there's an associated tim
 //All the global variables are declared up front with just a single var command which will save some performance time.
 var avatarIndex, difficultyLevel, avatarImages, isGameOn, easy, medium,
 hard, gameMinutes, gameLives, gameGemIndex, gamePointsPerGem,
-totalPoints, sprites, gemImages, possibleGemX, possibleGemY, possibleGemPoints, selections;
+totalPoints, sprites, gemImages, possibleGemX, possibleGemY, possibleGemPoints, selections, gameSpeedMultiplier;
 
 //Initializing the points tally to be zero
 totalPoints = 0;
@@ -22,18 +22,23 @@ avatarImages = ["images/char-boy.png",
 "images/char-princess-girl.png"
 ];
 
-//Creating an array of gem images
+//Creating an array of gem images. The game randomly shows the gems to be collected. Each gem has a different point attached to it.
+//Green = 5 points, Blue = 10 points, Orange = 15 points.
 gemImages = [
 'images/gem-green.png',
 'images/gem-blue.png',
-'images/gem-orange.png'
+'images/gem-orange.png',
+'images/Heart.png',
+'images/Star.png'
 ];
 
 selections = [false, false];
 
 possibleGemX = [0, 100, 200, 300, 400];
 possibleGemY = [60, 140, 220];
-possibleGemPoints = [5, 10, 15];//Green, Blue, Orange respectively
+//No points for hearts but extra live. Star has both points and lives.
+possibleGemPoints = [5, 10, 15, 0, 20];//Green, Blue, Orange, Heart, Star respectively
+
 
 
 //Creating a Difficulty class with lives and time
@@ -60,7 +65,7 @@ var Enemy = function() {
     this.possibleXloc = [-150, 600];
     this.possibleYloc = [60, 140, 220];
     this.possibleSpeed = [150, 600];
-    this.sprites = ['images/enemy-bug.png', 'images/enemy-car.png'];
+    this.sprites = ['images/enemy-bug.png'];
 
     this.reset(); //Setting to defaults
 }
@@ -69,7 +74,7 @@ var Enemy = function() {
 Enemy.prototype.reset = function() {
     this.x = this.possibleXloc[0];
     this.y = this.randomY();
-    this.speed = this.randomSpeed();
+    this.speed = this.randomSpeed() * gameSpeedMultiplier;
     this.sprite = this.randomSprite();
 }
 
@@ -104,6 +109,7 @@ Enemy.prototype.update = function(dt) {
 Enemy.prototype.checkCollisions = function() {
     if (this.y === player.y) {
                 //Player is in the same row as the enemy
+                console.log("Enemy = " + this.x + " Player = " + player.x);
                 if ((this.x >= player.x - 30) && (this.x <= player.x + 30)) {
                     //Oops, player lost a life
                     gameLives--;
@@ -119,7 +125,7 @@ Enemy.prototype.checkCollisions = function() {
                     }
                 }
             }
-}
+        }
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
@@ -135,11 +141,29 @@ var Gem = function() {
 Gem.prototype.update = function() {
     if (player.y === this.y) {
         if ((this.x >= player.x - 30) && (this.x <= player.x + 30)) {
-            //Bull's Eye. Updating points tally
-            totalPoints = totalPoints + gamePointsPerGem;
 
-            //Updating score
-            document.getElementById('pointsText').innerHTML = "Points: " + totalPoints;
+            if (gameGemIndex === 3) {
+                //Got a heart, did you? Awesome. you earned an extra life
+                gameLives++;
+                //Updating Lives Text
+                document.getElementById('livesText').innerHTML = "Lives: " + gameLives;
+            } else if (gameGemIndex < 3) {
+                //Bull's Eye. Updating points tally
+                totalPoints = totalPoints + gamePointsPerGem;
+
+                //Updating score
+                document.getElementById('pointsText').innerHTML = "Points: " + totalPoints;
+            } else if (gameGemIndex === 4) {
+                //Ah ha! Found the star. Earns you a life and points
+                gameLives++;
+                //Updating Lives Text
+                document.getElementById('livesText').innerHTML = "Lives: " + gameLives;
+
+                //Bull's Eye. Updating points tally
+                totalPoints = totalPoints + gamePointsPerGem;
+                //Updating score
+                document.getElementById('pointsText').innerHTML = "Points: " + totalPoints;
+            }
 
             //Set Next Target
             gameGemIndex = this.randomGem();
@@ -159,7 +183,7 @@ Gem.prototype.render = function() {
 }
 
 Gem.prototype.randomGem = function() {
-    return Math.floor(Math.random() * 3);
+    return Math.floor(Math.random() * 5);
 }
 
 //Creating a Player class
@@ -185,19 +209,19 @@ Player.prototype.render = function() {
 }
 
 Player.prototype.update = function() {
- if (this.key === 'left' && this.x > 0){
-        this.x = this.x - 100;
-    } else if (this.key === 'right' && this.x != 400){
-        this.x = this.x + 100;
-    } else if (this.key === 'up'){
-        this.y = this.y - 80;
-    } else if (this.key === 'down' && this.y != 400){
-        this.y = this.y + 80;
-    }
-    this.key = null;
-    if ((this.y < 60) || (this.y > 380)){
-        this.reset();
-    }
+   if (this.key === 'left' && this.x > 0){
+    this.x = this.x - 100;
+} else if (this.key === 'right' && this.x != 400){
+    this.x = this.x + 100;
+} else if (this.key === 'up'){
+    this.y = this.y - 80;
+} else if (this.key === 'down' && this.y != 400){
+    this.y = this.y + 80;
+}
+this.key = null;
+if ((this.y < 60) || (this.y > 380)){
+    this.reset();
+}
 }
 
 Player.prototype.handleInput = function(key) {
@@ -207,6 +231,7 @@ Player.prototype.handleInput = function(key) {
 //Defaults
 avatarIndex = 0;
 gameGemIndex = 0;
+gameSpeedMultiplier = 1;
 
 /* Objects */
 var allEnemies = [];
@@ -278,16 +303,20 @@ function difficultyClick(buttonID, level) {
         case 'Easy':
         gameMinutes = easy.minutes;
         gameLives = easy.lives;
+        gameSpeedMultiplier = 0.6; //Slower
         break;
         case 'Medium':
         gameMinutes = medium.minutes;
         gameLives = medium.lives;
+        gameSpeedMultiplier = 1; //Moderate
         break;
         case 'Hard':
         gameMinutes = hard.minutes;
         gameLives = hard.lives;
+        gameSpeedMultiplier = 1.4; //Faster
     }
 
+    //Choosing only a gem (not a heart or star) for the very first time
     gameGemIndex = Math.floor(Math.random() * 3);
     gamePointsPerGem = possibleGemPoints[gameGemIndex];
 
@@ -347,31 +376,39 @@ function startClick() {
 
 function countdown(minutes) {
     var seconds = 60;
-    var mins = minutes
+    var mins = minutes;
 
     function tick() {
-        var counter = document.getElementById("timerText");
-        var currentMinutes = mins - 1
-        seconds--;
-        counter.innerHTML = "Timer: " + currentMinutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds) + " mins";
-        if (seconds >
-            0) {
-            setTimeout(tick, 1000);
-    } else {
-        if (mins > 1) {
-            setTimeout(function() {
-                countdown(mins - 1);
-            }, 1000);
+        if (isGameOn) {
+            var counter = document.getElementById("timerText");
+            var currentMinutes = mins - 1;
+            seconds--;
+
+            counter.innerHTML = "Timer: " + currentMinutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds) + " mins";
+            if (seconds > 0) {
+                setTimeout(tick, 1000);
+            } else {
+                if (mins > 1) {
+                    setTimeout(function() {
+                        countdown(mins - 1);
+                    }, 1000);
+                }
+            }
+            if (currentMinutes === 0 && seconds === 0) {
+                stopGame();
+            }
         }
     }
-    if (currentMinutes === 0 && seconds === 0) {
-        stopGame();
-    }
-}
-tick();
+    tick();
 }
 
 function stopGame() {
+    //Reseting values
+    gameMinutes = 0;
+    gameGemIndex = 0;
+    avatarIndex = 0;
+    gameSpeedMultiplier = 1;
+    gameLives = 3;
     isGameOn = false;
     toggleCanvas(false);
     document.getElementById('pointsSummary').innerHTML = totalPoints;
