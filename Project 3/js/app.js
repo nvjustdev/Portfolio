@@ -3,7 +3,10 @@ This file handles all the internal details of the Game. The game comprises of fi
 the enemy who's out to get the player's avatar, the gems that the player intends to collect, the time that the player is racing against,
 and the points that the player intends to gather.
 
-There are three levels of difficulty. With each level, there's an associated time, points, grace lives and the speed of the enemy.
+There are three levels of difficulty. With each level, there's an associated time, points, lives and the speed of the enemy. The speed of the
+enemy will be a multiplier set for each difficulty level.
+
+There will be three colored gems and some special items. The colored gems offer different points while the special items offer lives.
 */
 
 //All the global variables are declared up front with just a single var command which will save some performance time.
@@ -23,7 +26,7 @@ avatarImages = ["images/char-boy.png",
 ];
 
 //Creating an array of gem images. The game randomly shows the gems to be collected. Each gem has a different point attached to it.
-//Green = 5 points, Blue = 10 points, Orange = 15 points.
+//Green = 5 points, Blue = 10 points, Orange = 15 points, Heart = 1 life, Star = 1 live + 20 points.
 gemImages = [
 'images/gem-green.png',
 'images/gem-blue.png',
@@ -32,14 +35,23 @@ gemImages = [
 'images/Star.png'
 ];
 
+//Initialize the selections (Avatar, Difficulty) array to be false
 selections = [false, false];
 
+//Where can the Gems appear? Here are the possible locations
 possibleGemX = [0, 100, 200, 300, 400];
 possibleGemY = [60, 140, 220];
-//No points for hearts but extra live. Star has both points and lives.
+
+//Special Items: No points for hearts but extra live. Star has both points and lives.
 possibleGemPoints = [5, 10, 15, 0, 20];//Green, Blue, Orange, Heart, Star respectively
 
+/*
+Setting the "Game's On" variable to be false and this will be true only when the game is on. This helps in identifying the
+timeframe when the canvas has to be rendered. The canvas will not be visible when the game isn't played -- when in the settings pages.
+*/
+isGameOn = false;
 
+/* CLASSES and OBJECTS */
 
 //Creating a Difficulty class with lives and time
 var Difficulty = function(lives, minutes) {
@@ -48,16 +60,9 @@ var Difficulty = function(lives, minutes) {
 };
 
 //Creating a variable for each of the game's levels
-easy = new Difficulty(3, 5);
-medium = new Difficulty(6, 4);
-hard = new Difficulty(10, 3);
-
-/*
-Setting the "Game's On" variable to be false and this will be true only when the game is on. This helps in identifying the
-timeframe when the canvas has to be rendered. The canvas will not be visible when the game isn't played -- when in the settings pages.
-*/
-
-isGameOn = false;
+easy = new Difficulty(3, 5); //3 lives + 5 minutes
+medium = new Difficulty(6, 4); //6 lives + 4 minutes
+hard = new Difficulty(10, 3); //10 lives + 3 minutes
 
 //Creating an Enemy class
 var Enemy = function() {
@@ -65,31 +70,40 @@ var Enemy = function() {
     this.possibleXloc = [-150, 600];
     this.possibleYloc = [60, 140, 220];
     this.possibleSpeed = [150, 600];
-    this.sprites = ['images/enemy-bug.png'];
+    this.sprites = ['images/enemy-bug.png'];//Current form for the game offers one enemy with variable speed which further changes based on the difficulty
 
     this.reset(); //Setting to defaults
 }
 
 //Defaults abstracted into a method to be used later to reset the enemy
 Enemy.prototype.reset = function() {
-    this.x = this.possibleXloc[0];
-    this.y = this.randomY();
-    this.speed = this.randomSpeed() * gameSpeedMultiplier;
-    this.sprite = this.randomSprite();
+    this.x = this.possibleXloc[0];//Always start at the left end
+    this.y = this.randomY(); //Any row
+    this.speed = this.randomSpeed() * gameSpeedMultiplier; //Ah-ha, here's where the speed gets altered
+    this.sprite = this.randomSprite(); //Hooks to add more enemies
+    //TODO: Add other enemies
 }
 
 //Helper method to get random y location
 Enemy.prototype.randomY = function() {
+    /* Choose the row randomly. This function will always choose one of 0, 1, 2
+    and hence the y location will be one of the three previously determined values 60, 140, 220
+    */
     return this.possibleYloc[Math.floor(Math.random() * this.possibleYloc.length)];
 }
 
 //Helper method to get random speed
 Enemy.prototype.randomSpeed = function() {
+    /* We choose a random number from 0 - difference between max and min speeds. Then we add that value to the min speed to get the new speed.
+    */
     return (this.possibleSpeed[0] + Math.floor(Math.random() * (this.possibleSpeed[1] - this.possibleSpeed[0])));
 }
 
 //Helper method to get random enemy sprite
 Enemy.prototype.randomSprite = function() {
+    //Choose a random sprite for the enemy
+    //Hooks to add more enemies
+    //TODO: Add other enemies
     return this.sprites[Math.floor(Math.random() * this.sprites.length)];
 }
 
@@ -103,6 +117,7 @@ Enemy.prototype.update = function(dt) {
         this.reset();
     }
 
+    //Check for collisions always. Get them lady bugs!
     this.checkCollisions();
 }
 
@@ -113,6 +128,7 @@ Enemy.prototype.checkCollisions = function() {
                 if ((this.x >= player.x - 30) && (this.x <= player.x + 30)) {
                     //Oops, player lost a life
                     gameLives--;
+                    //Update the lives text on the game console
                     document.getElementById('livesText').innerHTML = "Lives: " + gameLives;
 
                     //Check if all lives have been exhausted
@@ -134,8 +150,8 @@ Enemy.prototype.render = function() {
 
 //Creating a Gem class
 var Gem = function() {
-    this.x = possibleGemX[Math.floor(Math.random() * 5)];
-    this.y = possibleGemY[Math.floor(Math.random() * 3)];
+    this.x = possibleGemX[Math.floor(Math.random() * 5)];//One of the possible 5 x values
+    this.y = possibleGemY[Math.floor(Math.random() * 3)];//One of the possible 3 y values
 }
 
 Gem.prototype.update = function() {
@@ -165,42 +181,47 @@ Gem.prototype.update = function() {
                 document.getElementById('pointsText').innerHTML = "Points: " + totalPoints;
             }
 
-            //Set Next Target
+            //Set Next Gem and its associated points
             gameGemIndex = this.randomGem();
             gamePointsPerGem = possibleGemPoints[gameGemIndex];
 
+            //Need to get random location for the gem
             this.x = possibleGemX[Math.floor(Math.random() * 5)];
             this.y = possibleGemY[Math.floor(Math.random() * 3)];
 
-            //Resetting the player location to default
+            //Resetting the player location to default since the player got a gem
             player.reset();
         }
     }
 }
 
+//Draw a gem on the game console
 Gem.prototype.render = function() {
     ctx.drawImage(Resources.get(gemImages[gameGemIndex]), this.x, this.y);
 }
 
+//Get a random gem index. Game will be more interesting if we had more than one gems to collect
 Gem.prototype.randomGem = function() {
     return Math.floor(Math.random() * 5);
 }
 
 //Creating a Player class
 var Player = function() {
-    this.xRange = [-2, 402];
-    this.yRange = [-20, 380];
-    this.sprite = avatarImages[avatarIndex];
+    this.xRange = [-2, 402];//Define x range
+    this.yRange = [-20, 380];//Define y range
+    this.sprite = avatarImages[avatarIndex]; //Based on the chosen avatar
 
-    this.reset();
+    this.reset();//Reset if player lost life, or got collectible
 }
 
 Player.prototype.reset = function() {
+    //Default Location
     this.x = 200;
     this.y = 380;
 }
 
 Player.prototype.avatarImage = function() {
+    //Based on the chosen avatar, set the avatar image
     this.sprite = avatarImages[avatarIndex];
 }
 
