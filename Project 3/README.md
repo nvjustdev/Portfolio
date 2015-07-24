@@ -27,4 +27,17 @@ A heart will increase the life count of the avatar by 1
 A star will increase the life count of the avatar by 1 and also get 20 points
 
 Difficulty Levels
-================= 
+=================
+Easy: As the name suggests, this is the easiest. The bugs move relatively slower than other modes, and there’s more time. But the number of lives is less.
+
+Medium: The bugs move a bit faster now and there’s more time than hard but less than easy. The number of lives is in the middle between easy and hard.
+
+Hard: Be forewarned! The bugs will race. There’s more lives but less time.
+
+Keyboard input
+==============
+To move left, use the LEFT arrow
+To move right, use the RIGHT arrow
+To move up, use the UP arrow
+To move down, use the DOWN arrow
+
