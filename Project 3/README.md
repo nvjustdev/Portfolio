@@ -3,9 +3,13 @@ eFun Frogger Game
 
 Welcome to the eFun Frogger Game. Make sure you read the instructions and goals before you proceed with the game.
 
+Play the Game
+=============
+Click on the index.html to play the game and enjoy!
+
 Goal
 ====
-The goal is to get as many points as possible and at the same time, save the life of the avatar from the enemy. 
+The goal is to get as many points as possible and at the same time, save the life of the avatar from the enemy.
 
 Details
 =======
@@ -47,3 +51,6 @@ To move up, use the UP arrow
 
 To move down, use the DOWN arrow
 
+Play the Game
+=============
+To play the game, please click [here] (http://nvjustdev.github.io/frogger-game/Project%203/) and hope you enjoy!
