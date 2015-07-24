@@ -15,15 +15,18 @@ If the avatar collides with the enemy, and that’s the last life, then the game
 
 If the avatar successfully avoids the enemy and hits the collectible, then the avatar will gain points or lives or both as below:
 
-- Gems
-1. Green will get 5 points
-2. Blue will get 10 points
-3. Orange will get 15 points
+Gems
+---
+- Green will get 5 points
+- Blue will get 10 points
+- Orange will get 15 points
 
-- Heart
+Heart
+-----
 A heart will increase the life count of the avatar by 1
 
-- Star
+Star
+----
 A star will increase the life count of the avatar by 1 and also get 20 points
 
 Difficulty Levels
