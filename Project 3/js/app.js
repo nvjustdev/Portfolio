@@ -123,7 +123,7 @@ Enemy.prototype.update = function(dt) {
 }
 
 Enemy.prototype.checkCollisions = function() {
-	if ((this.y === player.y) && ((this.x >= player.x - 30) && (this.x <= player.x + 30))) {
+	if ((this.y === player.y) && (this.x >= player.x - 30) && (this.x <= player.x + 30)) {
 		//Player has collided with the enemy
 		//Oops, player lost a life
 		gameLives--;
@@ -153,7 +153,7 @@ var Gem = function() {
 };
 
 Gem.prototype.update = function() {
-	if ((player.y === this.y) && ((this.x >= player.x - 30) && (this.x <= player.x + 30))) {
+	if ((player.y === this.y) && (this.x >= player.x - 30) && (this.x <= player.x + 30)) {
 		// if ((this.x >= player.x - 30) && (this.x <= player.x + 30)) {
 
 			if (gameGemIndex === 3) {
