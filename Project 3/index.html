@@ -7,6 +7,7 @@
 </head>
 <body>
 
+<!-- Instructions Segment -->
 <div id="instructions">
 	<h1>Instructions</h1>
 	<div class="detailedInstructions">
@@ -22,10 +23,12 @@
 			</ul>
 	</ol>
 	</div>
+	<!-- Ready Button - Takes the user to the avatar selection -->
 	<button id="ready" class="button" onclick="showAvatarSelection();">Ready?</button>
 </div>
 
 <div>
+	<!-- Avatar selection -->
 	<div class="avatarSelection" id="avatarSelectionId">
 		<h2>Choose Your Avatar</h2>
 		<div class="avatars">
@@ -37,13 +40,17 @@
 		</div>
 	</div>
 
+	<!-- Difficulty selection -->
 	<div class="difficultySelection" id="gameDifficultyId">
+		<!-- Chosen Avatar -->
 		<h2>Your Avatar</h2>
 		<img id="chosenAvatar" class="chosenElement" src="" alt="Chosen Avatar" />
 		<div>
+			<!-- Back to choosing an avatar -->
 			<button id="startGame" class="button back" onclick="showAvatarSelection();">Hmm? Back Pls!</button>
 		</div>
 
+		<!-- Game Difficulty Selection -->
 		<h2>Choose Game Difficulty</h2>
 		<div class="difficultyButtons">
 			<button id="easyButton" class="button difficultyButton easy" onclick="difficultyClick(this.id, 'Easy')">Easy</button>
@@ -52,43 +59,55 @@
 		</div>
 	</div>
 
+	<!-- Summary of the selection -->
 	<div class="startButton" id="summaryOfSelection">
+		<!-- Chosen Avatar -->
 		<h2>Your Avatar</h2>
 		<img id="chosenAvatarInDiff" class="chosenElement" src="" alt="Chosen Avatar" />
 
+		<!-- Chosen Difficulty -->
 		<div id="chosenDifficultyId">
 		</div>
 
+		<!-- Not satisfied with the difficulty selection? This is the option to go back and change the selection -->
 		<div>
 			<button id="startGame" class="button back" onclick="showDifficultySelection();">Nah! Back Pls!</button>
 		</div>
 
+		<!-- Game Start. Show the canvas -->
 		<div>
 			<button id="startGame" class="button start" onclick="toggleCanvas(true);">Let's Start It</button>
 		</div>
 	</div>
 
+	<!-- Game is over -->
 	<div class="gameOver" id="gameOver">
 		<h1>Game Over!</h1>
 		<hr>
+		<!-- Game Summary -->
 		<div id="gameSummary">
 			<h2>Score</h2>
 			<h1 id="pointsSummary"></h1>
 		</div>
+
+		<!-- Play again button -->
 		<button id="playAgain" class="playAgain button" onclick="showAvatarSelection();">Play Again?</button>
 	</div>
 
+	<!-- Game Board on top of the canvas -->
 	<div id ="stats" class="gameBoard">
 	    <div id="livesText"></div>
 		<div id="timerText"></div>
 		<div id="pointsText"></div>
 	</div>
 </div>
-<!-- <button id="ready" class="readyStart" onclick="toggleCanvas(true);">Start Game</button> -->
+
+	<!-- Javascripts -->
     <script src="js/resources.js"></script>
     <script src="js/app.js"></script>
     <script src="js/engine.js"></script>
 
+    <!-- Show or hide the canvas function -->
     <script type="text/javascript">
     	function toggleCanvas (isShow) {
     		var canvas = document.querySelector('canvas');
