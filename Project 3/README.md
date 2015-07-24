@@ -37,7 +37,10 @@ Hard: Be forewarned! The bugs will race. There’s more lives but less time.
 Keyboard input
 ==============
 To move left, use the LEFT arrow
+
 To move right, use the RIGHT arrow
+
 To move up, use the UP arrow
+
 To move down, use the DOWN arrow
 
