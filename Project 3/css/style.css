@@ -1,0 +1,143 @@
+body {
+    text-align: center;
+    color: blue;
+}
+
+.avatarSelection {
+	display: none;
+}
+
+.difficultySelection {
+	display: none;
+}
+
+.startButton {
+	display: none;
+}
+
+.gameOver {
+	display: none;
+}
+
+.stats {
+	display: none;
+}
+
+#instructions {
+	border: 1px solid blue;
+	color: blue;
+	width: 500px;
+	text-align: center;
+	margin: 100px 300px 100px 300px;
+}
+
+#instructions ul {
+	text-align: left;
+}
+
+ul li {
+	padding-bottom: 3px;
+	color: black;
+}
+
+#instructions ol {
+	text-align: left;
+}
+
+ol li {
+	padding-bottom: 5px;
+	color: black;
+}
+
+.detailedInstructions {
+	margin: 50px 100px 50px 100px;
+}
+
+.button {
+	height: 40px;
+	width: 120px;
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    vertical-align: center;
+    border: 1px solid #333333;
+    border-radius: 3px;
+    cursor: pointer;
+    margin: 10px;
+    background-color: blue;
+}
+
+.back {
+	height: 40px;
+	width: 220px;
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    vertical-align: center;
+    border: 1px solid #333333;
+    border-radius: 3px;
+    cursor: pointer;
+    margin: 10px;
+    background-color: teal;
+}
+
+.easy {
+	background-color: green;
+}
+
+.medium {
+	background-color: yellow;
+	color: black;
+}
+
+.hard {
+	background-color: red;
+}
+
+.start {
+	height: 60px;
+	width: 220px;
+	background-color: gold;
+	color: black;
+}
+
+#gameOver {
+	border: 1px solid blue;
+	color: blue;
+	width: 500px;
+	text-align: center;
+	margin: 100px 300px 100px 300px;
+}
+
+#livesText {
+	float: left;
+	width: 33%;
+	text-align: center;
+	padding-left: 6px;
+}
+
+#pointsText {
+	float: left;
+	width: 33%;
+	text-align: center;
+}
+
+#timerText {
+	float: left;
+	width: 33%;
+	text-align: center;
+	color: black;
+}
+
+canvas {
+    margin: 0 300px 0px 287px;
+    float: left;
+}
+
+.gameBoard {
+	width: 60%;
+	margin: auto auto 0 auto;
+	padding: 50px 20px 10px 10px;
+	font-size: 23px;
+	font-weight: bold;
+}

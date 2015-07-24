@@ -9,17 +9,20 @@
 
 <div id="instructions">
 	<h1>Instructions</h1>
-	<ol>
-		<li>Choose your cool avatar</li>
-		<li>Choose a level</li>
-		<li>Use your keyboard as your guide</li>
-		<ul>
-			<li>To move left: LEFT arrow</li>
-			<li>To move right: RIGHT arrow</li>
-			<li>To move up: UP arrow</li>
-			<li>To move down: DOWN arrow</li>
-		</ul>
+	<div class="detailedInstructions">
+		<ol>
+			<li>Choose your cool avatar</li>
+			<li>Choose a level</li>
+			<li>Use your keyboard as your guide</li>
+			<ul>
+				<li>To move left: LEFT arrow</li>
+				<li>To move right: RIGHT arrow</li>
+				<li>To move up: UP arrow</li>
+				<li>To move down: DOWN arrow</li>
+			</ul>
 	</ol>
+	</div>
+	<button id="ready" class="button" onclick="showAvatarSelection();">Ready?</button>
 </div>
 
 <div>
@@ -38,14 +41,14 @@
 		<h2>Your Avatar</h2>
 		<img id="chosenAvatar" class="chosenElement" src="" alt="Chosen Avatar" />
 		<div>
-			<button id="startGame" class="button" onclick="showAvatarSelection();">Back To Choosing Avatar</button>
+			<button id="startGame" class="button back" onclick="showAvatarSelection();">Hmm? Back Pls!</button>
 		</div>
 
 		<h2>Choose Game Difficulty</h2>
 		<div class="difficultyButtons">
-			<button id="easyButton" class="button difficultyButton" onclick="difficultyClick(this.id, 'Easy')">Easy</button>
-			<button id="mediumButtom" class="button difficultyButton" onclick="difficultyClick(this.id, 'Medium')">Medium</button>
-			<button id="hardButton" class="button difficultyButton" onclick="difficultyClick(this.id, 'Hard')">Hard</button>
+			<button id="easyButton" class="button difficultyButton easy" onclick="difficultyClick(this.id, 'Easy')">Easy</button>
+			<button id="mediumButtom" class="button difficultyButton medium" onclick="difficultyClick(this.id, 'Medium')">Medium</button>
+			<button id="hardButton" class="button difficultyButton hard" onclick="difficultyClick(this.id, 'Hard')">Hard</button>
 		</div>
 	</div>
 
@@ -57,11 +60,11 @@
 		</div>
 
 		<div>
-			<button id="startGame" class="button" onclick="showDifficultySelection();">Back To Choosing Difficulty</button>
+			<button id="startGame" class="button back" onclick="showDifficultySelection();">Nah! Back Pls!</button>
 		</div>
 
 		<div>
-			<button id="startGame" class="button" onclick="toggleCanvas(true);">Start Game</button>
+			<button id="startGame" class="button start" onclick="toggleCanvas(true);">Let's Start It</button>
 		</div>
 	</div>
 
@@ -72,14 +75,13 @@
 			<h2>Score</h2>
 			<h1 id="pointsSummary"></h1>
 		</div>
-		<button id="playAgain" class="playAgain" onclick="showAvatarSelection();">PlayAgain?</button>
+		<button id="playAgain" class="playAgain button" onclick="showAvatarSelection();">Play Again?</button>
 	</div>
 
 	<div id ="stats" class="gameBoard">
 	    <div id="livesText"></div>
 		<div id="timerText"></div>
 		<div id="pointsText"></div>
-		<div id="difficultyText"></div>
 	</div>
 </div>
 <!-- <button id="ready" class="readyStart" onclick="toggleCanvas(true);">Start Game</button> -->

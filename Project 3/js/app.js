@@ -325,6 +325,12 @@ function difficultyClick(buttonID, level) {
     document.getElementById('chosenAvatarInDiff').src = avatarImage(avatarIndex);
     document.getElementById('gameDifficultyId').style.display = 'none';
     document.getElementById('summaryOfSelection').style.display = 'block';
+
+    var myNode = document.getElementById("chosenDifficultyId");
+    while (myNode.firstChild) {
+        myNode.removeChild(myNode.firstChild);
+    }
+
     var newHeading = document.createElement('h2');
     newHeading.innerHTML = "You are playing difficulty level: " + difficultyLevel;
     document.getElementById('chosenDifficultyId').appendChild(newHeading);
@@ -353,7 +359,7 @@ function startClick() {
     document.getElementById('gameOver').style.display = 'none';
 
     document.getElementById('livesText').innerHTML = "Lives: " + gameLives;
-    // document.getElementById('difficultyText').innerHTML = "Difficulty: " + difficultyLevel;
+    document.getElementById('pointsText').innerHTML = "Points: " + totalPoints;
     document.getElementById('timerText').innerHTML = "Timer: " + gameMinutes + ": 00 mins";
 
     if ((selections[0] === true) && (selections[1] === true)) {
@@ -366,12 +372,6 @@ function startClick() {
             alert("Please select the avatar");
         }
     }
-
-    // var gameCanvas = document.querySelector('canvas')
-    // gameCanvas.style.display = "block";
-
-    // isGameOn = true;
-    // countdown(gameMinutes);
 };
 
 function countdown(minutes) {
