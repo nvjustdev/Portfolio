@@ -1,8 +1,10 @@
+/* The goal of this style is to add some color to the game console */
 body {
     text-align: center;
     color: blue;
 }
 
+/* All except the instructions are not shown */
 .avatarSelection {
 	display: none;
 }
@@ -23,6 +25,7 @@ body {
 	display: none;
 }
 
+/* Instructions Segment */
 #instructions {
 	border: 1px solid blue;
 	color: blue;
@@ -53,6 +56,7 @@ ol li {
 	margin: 50px 100px 50px 100px;
 }
 
+/* Buttons of the game console */
 .button {
 	height: 40px;
 	width: 120px;
@@ -67,6 +71,7 @@ ol li {
     background-color: blue;
 }
 
+/* Making the back button a bit different */
 .back {
 	height: 40px;
 	width: 220px;
@@ -81,6 +86,7 @@ ol li {
     background-color: teal;
 }
 
+/* Making the difficulty buttons uniquely color coded */
 .easy {
 	background-color: green;
 }
@@ -94,6 +100,7 @@ ol li {
 	background-color: red;
 }
 
+/* Start Button */
 .start {
 	height: 60px;
 	width: 220px;
@@ -101,6 +108,7 @@ ol li {
 	color: black;
 }
 
+/* Game Over Section */
 #gameOver {
 	border: 1px solid blue;
 	color: blue;
@@ -109,6 +117,7 @@ ol li {
 	margin: 100px 300px 100px 300px;
 }
 
+/* Game Stats Section */
 #livesText {
 	float: left;
 	width: 33%;
@@ -122,6 +131,7 @@ ol li {
 	text-align: center;
 }
 
+/* Useful to have the timer a different color */
 #timerText {
 	float: left;
 	width: 33%;
@@ -129,11 +139,13 @@ ol li {
 	color: black;
 }
 
+/* Canvas styling */
 canvas {
     margin: 0 300px 0px 287px;
     float: left;
 }
 
+/* Overall Game board alignment */
 .gameBoard {
 	width: 60%;
 	margin: auto auto 0 auto;

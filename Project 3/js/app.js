@@ -225,36 +225,44 @@ Player.prototype.avatarImage = function() {
     this.sprite = avatarImages[avatarIndex];
 }
 
+//Draw the player avatar on the game console
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
 
+//When there is a key pressed on the keyboard, make sure to move the player accordingly
 Player.prototype.update = function() {
-   if (this.key === 'left' && this.x > 0){
-    this.x = this.x - 100;
-} else if (this.key === 'right' && this.x != 400){
-    this.x = this.x + 100;
-} else if (this.key === 'up'){
-    this.y = this.y - 80;
-} else if (this.key === 'down' && this.y != 400){
-    this.y = this.y + 80;
-}
-this.key = null;
-if ((this.y < 60) || (this.y > 380)){
-    this.reset();
-}
+    if (this.key === 'left' && this.x > 0){
+        this.x = this.x - 100;
+    } else if (this.key === 'right' && this.x != 400){
+        this.x = this.x + 100;
+    } else if (this.key === 'up'){
+        this.y = this.y - 80;
+    } else if (this.key === 'down' && this.y != 400){
+        this.y = this.y + 80;
+    }
+
+    this.key = null; //Waiting for the next input
+
+    //If the player goes out of the bounds, put the player back at the default location
+    if ((this.y < 60) || (this.y > 380)){
+        this.reset();
+    }
 }
 
+//Get the input and set the key for Player to be picked up by the Player.prototype.update function
 Player.prototype.handleInput = function(key) {
     this.key = key;
 }
 
 //Defaults
-avatarIndex = 0;
-gameGemIndex = 0;
-gameSpeedMultiplier = 1;
+avatarIndex = 0; //First avatar
+gameGemIndex = 0; //First Gem
+gameSpeedMultiplier = 1; //Medium
 
 /* Objects */
+
+//First, the enemies!
 var allEnemies = [];
 
 var tough = new Enemy();
@@ -272,11 +280,14 @@ allEnemies.push(moreTough);
 var theToughest = new Enemy();
 allEnemies.push(theToughest);
 
+//Next the player
 var player = new Player();
+
+//Last and quite not the least, the gem!
 var gem = new Gem();
 
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
+// This listens for key presses and sends the keys to the
+// Player.handleInput() method
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
         37: 'left',
@@ -289,9 +300,8 @@ document.addEventListener('keyup', function(e) {
 });
 
 /* Helper Functions */
-//This function is invoked when the user has digested the instructions. This function shows the avatar selection.
-//It is possible that this method is invoked when the user isn't satisfied with the avatar selection.
-
+//This function is invoked when the user has digested the instructions. This function shows the avatar selection page.
+//It is possible that this method is invoked when the user isn't satisfied with the avatar selection (hit the back on the difficulty selection page)
 function showAvatarSelection() {
     console.log("Hi");
     document.getElementById('instructions').style.display = 'none';
@@ -302,6 +312,9 @@ function showAvatarSelection() {
     document.getElementById('gameOver').style.display = 'none';
 };
 
+//Okay, avatar's chosen. Set the value of the avatar image, make the first selection (avatar) to be true, update the player's avatar
+//This function shows the difficulty selection page, and the chosen avatar.
+//The user can choose to go back and change the avatar if needed.
 function avatarClick(imgId, imgIndex) {
     avatarIndex = imgIndex;
     player.avatarImage();
@@ -314,10 +327,13 @@ function avatarClick(imgId, imgIndex) {
     document.getElementById('gameOver').style.display = 'none';
 };
 
+//Returns the avatar image for the given index
 function avatarImage(imageIndex) {
     return avatarImages[imageIndex];
 };
 
+
+//The difficulty was chosen. Set the difficultyLevel variable. Based on the difficulty, set the game time, lives and the speed multiplier of the enemies
 function difficultyClick(buttonID, level) {
     difficultyLevel = level;
     switch (level) {
@@ -341,17 +357,23 @@ function difficultyClick(buttonID, level) {
     gameGemIndex = Math.floor(Math.random() * 3);
     gamePointsPerGem = possibleGemPoints[gameGemIndex];
 
+    //The second selection is also completed
     selections[1] = true;
 
+    //Show the Avatar and difficulty selections
     document.getElementById('chosenAvatarInDiff').src = avatarImage(avatarIndex);
+
+    //Hide the old pages and show the summary
     document.getElementById('gameDifficultyId').style.display = 'none';
     document.getElementById('summaryOfSelection').style.display = 'block';
 
+    //Remove any old difficulty level selection message
     var myNode = document.getElementById("chosenDifficultyId");
     while (myNode.firstChild) {
         myNode.removeChild(myNode.firstChild);
     }
 
+    //Add the new difficulty level selection message
     var newHeading = document.createElement('h2');
     newHeading.innerHTML = "You are playing difficulty level: " + difficultyLevel;
     document.getElementById('chosenDifficultyId').appendChild(newHeading);
@@ -359,6 +381,8 @@ function difficultyClick(buttonID, level) {
 };
 
 function showDifficultySelection() {
+    //Now the selections are complete, show the summary of selections
+    //Hide other sections
     document.getElementById('chosenAvatar').src = avatarImage(avatarIndex);
     document.getElementById('avatarSelectionId').style.display = 'none';
     document.getElementById('gameDifficultyId').style.display = 'block';
@@ -372,21 +396,26 @@ function showDifficultySelection() {
 };
 
 function startClick() {
-    console.log("Started");
+    //Game mode
+    //Show the stats on the top of the game area
     document.getElementById('avatarSelectionId').style.display = 'none';
     document.getElementById('gameDifficultyId').style.display = 'none';
     document.getElementById('summaryOfSelection').style.display = 'none';
     document.getElementById('stats').style.display = 'block';
     document.getElementById('gameOver').style.display = 'none';
 
+    //Update lives, timer and points
     document.getElementById('livesText').innerHTML = "Lives: " + gameLives;
     document.getElementById('pointsText').innerHTML = "Points: " + totalPoints;
     document.getElementById('timerText').innerHTML = "Timer: " + gameMinutes + ": 00 mins";
 
+
+    //If the selections are ready, start countdown and game
     if ((selections[0] === true) && (selections[1] === true)) {
         isGameOn = true;
         countdown(gameMinutes);
     } else {
+        //One selection is missing
         if (selections[0] === true) {
             alert("Please select the difficulty");
         } else {
@@ -399,28 +428,34 @@ function countdown(minutes) {
     var seconds = 60;
     var mins = minutes;
 
+    //Function to keep a track of ticking of time
     function tick() {
         if (isGameOn) {
             var counter = document.getElementById("timerText");
-            var currentMinutes = mins - 1;
-            seconds--;
+            var currentMinutes = mins - 1; //Reduce the minutes by 1
+            seconds--; //Reduce the seconds by 1
 
+            //Update the timer text on the HTML page
             counter.innerHTML = "Timer: " + currentMinutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds) + " mins";
             if (seconds > 0) {
-                setTimeout(tick, 1000);
+                setTimeout(tick, 1000); //There's still time. Keep ticking
             } else {
+                //1 Minute is completed
                 if (mins > 1) {
+                    //There's still more minutes left for the game. Recurse with the current number of minutes
                     setTimeout(function() {
                         countdown(mins - 1);
                     }, 1000);
                 }
             }
+
+            //No time left. Stop the game
             if (currentMinutes === 0 && seconds === 0) {
                 stopGame();
             }
         }
     }
-    tick();
+    tick(); //Call tick
 }
 
 function stopGame() {
@@ -430,8 +465,14 @@ function stopGame() {
     avatarIndex = 0;
     gameSpeedMultiplier = 1;
     gameLives = 3;
+
+    //Game is not on
     isGameOn = false;
+
+    //Hide the game canvas
     toggleCanvas(false);
+
+    //Update the HTML page with the total points and display the summary of the game
     document.getElementById('pointsSummary').innerHTML = totalPoints;
     document.getElementById('gameOver').style.display = 'block';
     document.getElementById('stats').style.display = 'none';
