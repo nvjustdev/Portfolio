@@ -1,6 +1,19 @@
 //Creating variables comma-delimited to prevent var lookup
 var work = {
 	"job" : [
+		{
+		"title" : "Member of Technical Staff",
+		"position" : "Full time",
+		"company" : "Mist Systems Inc",
+		"location" : "Cupertino",
+		"timeframe" : "November 2014 - Present",
+		"skills" : [
+			"SDK Owner/Lead",
+		"iOS development",
+		"Android development",
+		"Mobile App automated testing"
+		]
+	},
 	{
 		"title" : "Mobile Developer",
 		"position" : "Consultant (Part-Time)",

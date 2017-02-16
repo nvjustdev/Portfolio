@@ -102,7 +102,7 @@ function appViewModel() {
 	function getSchools(zipcode) {
 		//Get the schools in the zipcode from GreatSchools.org
 		var url =
-			"http://api.greatschools.org/schools/nearby?key=kge2fgxsc82fv6mvydwjrqxx&state=CA&zip=95014",
+			"http://api.greatschools.org/schools/nearby?key=[APIKEY]&state=CA&zip=95014",
 			//Adding the yahoo proxy for making the call to the GreatSchools.org REST API
 			yql = 'http://query.yahooapis.com/v1/public/yql?q=' + encodeURIComponent(
 				'select * from xml where url="' + url + '"') + '&format=xml&callback=?';
@@ -202,7 +202,7 @@ function appViewModel() {
 
 		var score,
 			url = "http://api.greatschools.org/school/tests/CA/" + gsId +
-			"?key=kge2fgxsc82fv6mvydwjrqxx",
+			"?key=[APIKEY]",
 			yql = 'http://query.yahooapis.com/v1/public/yql?q=' + encodeURIComponent(
 				'select * from xml where url="' + url + '"') + '&format=xml&callback=?';
 
@@ -253,7 +253,7 @@ function appViewModel() {
 	}, 8000);
 
 	function findSchoolReview(zipCode, schoolArray) {
-		for (var i = 0; i < schoolArray.length; i++) {
+		for (var i = 0, len = schoolArray.length; i < len; i++) {
 			yelpSearch('95014', schoolArray[i].schoolName, schoolArray[i].schoolGsId,
 				'cb' + i);
 		}
@@ -261,10 +261,10 @@ function appViewModel() {
 
 	function yelpSearch(zipCode, schoolName, gsId, callback) {
 		var auth = {
-			consumerKey: "NrQS4PQoWHfdK6uJSjj6HA",
-			consumerSecret: "5YiLiGo3wmF6oBRUe3fJSBaTQfw",
-			accessToken: "FS9x9XyEBQDxH4rcT9eXm26yRQoqOB9f",
-			accessTokenSecret: "xO1PqPj_3BIL_oG87nkq6tZe-hw",
+			consumerKey: "consumerKey",
+			consumerSecret: "consumerSecret",
+			accessToken: "accessToken",
+			accessTokenSecret: "accessTokenSecret",
 			serviceProvider: {
 				signatureMethod: "HMAC-SHA1"
 			}
@@ -335,7 +335,7 @@ function appViewModel() {
 		var results = data.businesses;
 
 		if (results.length > 0) {
-			for (var index = 0; index < results.length; index++) {
+			for (var index = 0, len = results.length; index < len; index++) {
 				var school = results[index];
 
 				if ((name === school.name) || (name.indexOf(school.name) > -1) || (school.name
@@ -355,7 +355,7 @@ function appViewModel() {
 		var results = data.businesses;
 
 		if (results.length > 0) {
-			for (var index = 0; index < results.length; index++) {
+			for (var index = 0, len = results.length; index < len; index++) {
 				var school = results[index];
 
 				if ((name === school.name) || (name.indexOf(school.name) > -1) || (school.name
@@ -615,6 +615,12 @@ function appViewModel() {
 	window.addEventListener('resize', function(e) {
 		var center = map.getCenter();
 		google.maps.event.trigger(map, "resize");
+		var width = window.screen.width;
+		if (width <= 750) {
+			map.setZoom(11);
+		} else if (width <= 1000) {
+			map.setZoom(12);
+		}
 		map.setCenter(center);
 	});
 
